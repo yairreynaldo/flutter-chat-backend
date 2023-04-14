@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 
 // DB config
@@ -7,6 +8,7 @@ require('./database/config').dbConnection();
 
 // App de Express
 const app = express();
+app.use(cors());
 
 // Lectura y parseo del body
 app.use(express.json());
@@ -25,6 +27,8 @@ app.use(express.static(publicPath));
 
 // Mis rutas
 app.use('/api/login', require('./routes/auth'));
+app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/mensajes', require('./routes/mensajes'));
 
 
 server.listen(process.env.PORT, (err) => {
